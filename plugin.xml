@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-toastyplugin" version="1.0.0">
+    <name>Phenix VideoPlayer</name>
+
+    <description>An Android Cordova plugin that allows users to play videos on android devices</description>
+    <license>MIT</license>
+
+    <keywords>cordova,android,videos, videoplayer, phenix</keywords>
+    <repo>https://github.com/stanidesis/toastyplugin/Toast-PhoneGap-Plugin.git</repo>
+    <issue>https://github.com/stanidesis/toastyplugin/issues</issue>
+  
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+  
+    <js-module src="www/phenixvideoplayer.js" name="PhenixVideoPlayer">
+        <clobbers target="window.plugins.phenixvideoplayer" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="PhenixVideoPlayer">
+                <param name="android-package" value="com.steveberek.cordova.plugin.PhenixVideoPlayer"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/PhenixVideoPlayer.java" target-dir="src/com/steveberek/cordova/plugin" />
+    </platform>
+</plugin>
