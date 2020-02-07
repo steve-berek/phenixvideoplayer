@@ -249,7 +249,6 @@ public class PhenixVideoPlayer extends CordovaPlugin {
              player1.setRepeatMode(Player.REPEAT_MODE_ALL);
          else
              player1.setRepeatMode(Player.REPEAT_MODE_OFF);
-         player1.setRepeatMode();
          playerView1.setPlayer(player1);
          playerView1.setUseController(controlsActive);
          if (muteVideo)
