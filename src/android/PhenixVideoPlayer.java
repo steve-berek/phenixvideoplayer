@@ -26,6 +26,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import java.io.File;
 import java.util.ArrayList;
+import java.net.URI;
+
 
 
 public class PhenixVideoPlayer extends CordovaPlugin {
@@ -77,7 +79,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
               String mute = options.getString("mute");
 
               if (!path.equals("") && !loop.equals("") && !controls.equals("")) {
-                  videoFiles.add(new File(path));
+                  videoFiles.add(new File(new URI(path)));
                   loopMode = Boolean.valueOf(loop);
                   controlsActive = Boolean.valueOf(controls);
                   fullscreenActive = Boolean.valueOf(fullscreen);
@@ -113,7 +115,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
 
               if (videosPaths.length > 0) {
                   for (String path : videosPaths) {
-                      File file = new File(path);
+                      File file = new File(new URI(path));
                       videoFiles.add(file);
                   }
               }
