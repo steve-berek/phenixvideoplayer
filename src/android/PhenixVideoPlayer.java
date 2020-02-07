@@ -245,6 +245,11 @@ public class PhenixVideoPlayer extends CordovaPlugin {
 
     public void initializePlayer() {
          player1 = new SimpleExoPlayer.Builder(cordova.getActivity()).build();
+         if ( loopMode )
+             player1.setRepeatMode(Player.REPEAT_MODE_ALL);
+         else
+             player1.setRepeatMode(Player.REPEAT_MODE_OFF);
+         player1.setRepeatMode();
          playerView1.setPlayer(player1);
          playerView1.setUseController(controlsActive);
          if (muteVideo)
@@ -262,9 +267,6 @@ public class PhenixVideoPlayer extends CordovaPlugin {
                          break;
                      case Player.STATE_ENDED :
                          Log.d(TAG,"STATE -> ENDED");
-                         if ( loopMode ) {
-                             runVideoPlaylist();
-                         }
                              PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
                              globalCallbackContext.sendPluginResult(pluginResult);
                          break;
