@@ -6,7 +6,7 @@ PHENIX VIDEO PLAYER FOR ANDROID
 THE FOLLOWING FUNCTIONS ARE AVAILABLE
 
 - PLAY A UNIQUE VIDEO
-playVideo(videoPath, loop, controls, fullscreen, mute, successCallback, errorCallback)
+- playVideo(videoPath, loop, controls, fullscreen, mute, successCallback, errorCallback)
 
 videoPath (String) : Path of the file
 loop (Boolean) : true if you want the video to be played in loop
@@ -28,13 +28,13 @@ errorCallback (Callback) : fired when there is an error
 
 
 - STOP A VIDEO
-stopVideo(successCallback, errorCallback)
+- stopVideo(successCallback, errorCallback)
 
 successCallback (Callback) : fired when the video ended correctly
 errorCallback (Callback) : fired when there is an error
 
 - RESET A VIDEO
-resetVideo(successCallback, errorCallback)
+- resetVideo(successCallback, errorCallback)
 
 successCallback (Callback) : fired when the video ended correctly
 errorCallback (Callback) : fired when there is an error
