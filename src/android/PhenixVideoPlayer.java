@@ -232,10 +232,18 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     }
 
     public void resetVideo() {
-      player1.stop(true);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                  public void run() {
+                    player1.stop(true);
+                  }
+              });
     }
     public void stopVideo() {
-      player1.stop();
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                  public void run() {
+                    player1.stop();                     
+                  }
+              });
     }
 
     public void runVideoPlaylist() {
