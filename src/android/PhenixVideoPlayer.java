@@ -79,6 +79,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
               String mute = options.getString("mute");
 
               if (!path.equals("") && !loop.equals("") && !controls.equals("")) {
+                  videoFiles = new ArrayList<>();
                   videoFiles.add(new File(new URI(path)));
                   loopMode = Boolean.valueOf(loop);
                   controlsActive = Boolean.valueOf(controls);
@@ -87,6 +88,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
               } else {
                   return false;
               }
+              Log.d(TAG, "PATHS_VALUE -> " + path);
               Log.d(TAG, "LOOP_VALUE -> " + loop);
               Log.d(TAG, "CONTROLS_VALUE -> " + controls);
               cordova.getActivity().runOnUiThread(new Runnable() {
@@ -114,12 +116,13 @@ public class PhenixVideoPlayer extends CordovaPlugin {
               videosPaths = paths.split(",");
 
               if (videosPaths.length > 0) {
+                  videoFiles = new ArrayList<>();
                   for (String path : videosPaths) {
                       File file = new File(new URI(path));
                       videoFiles.add(file);
                   }
               }
-
+              Log.d(TAG, "PATHS_VALUE -> " + paths);
               if (!loop.equals("") && !controls.equals("")) {
                   loopMode = Boolean.valueOf(loop);
                   controlsActive = Boolean.valueOf(controls);
@@ -234,14 +237,19 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     public void resetVideo() {
             cordova.getActivity().runOnUiThread(new Runnable() {
                   public void run() {
-                    player1.stop(true);
+                      player1.setPlayWhenReady(false);
+                      player1.stop(true);
+                      player1.release();
                   }
               });
     }
     public void stopVideo() {
             cordova.getActivity().runOnUiThread(new Runnable() {
                   public void run() {
-                    player1.stop();                     
+                      player1.setPlayWhenReady(false);
+                      player1.stop(false);
+                     // player1.release();
+                   //   dialog.dismiss();
                   }
               });
     }
