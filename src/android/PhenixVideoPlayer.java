@@ -148,6 +148,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
   }
 
     public void createViews() {
+        deleteViews();
         dialog = new Dialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
         dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -176,6 +177,13 @@ public class PhenixVideoPlayer extends CordovaPlugin {
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
+
+    public void deleteViews() {
+      Log.d(TAG, "DESTROYING_VIEWS");
+      dialog = null;
+      rootView = null;
+      playerView1 = null;
+    }
     public void playOneVideo(File file) {
         ArrayList<File> videoFiles = new ArrayList<>();
         videoFiles.add(file);
@@ -188,8 +196,8 @@ public class PhenixVideoPlayer extends CordovaPlugin {
 
 
     public void initDataSourceFactory () {
-         dataSourceFactory = new DefaultDataSourceFactory(cordova.getActivity(),
-                Util.getUserAgent(cordova.getActivity(), "yourApplicationName"));
+         dataSourceFactory = new DefaultDataSourceFactory(cordova.getActivity().getApplicationContext(),
+                Util.getUserAgent(cordova.getActivity().getApplicationContext(), "yourApplicationName"));
     }
 
     public void initVideoPlaylist() {
@@ -226,6 +234,9 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     }
 
     public void prepareMediaSources() {
+      if ( concatenatingMediaSource != null)
+          concatenatingMediaSource = null;
+
       concatenatingMediaSource = new ConcatenatingMediaSource();
       for ( Uri videoUri : videosUris ){
           MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
@@ -237,6 +248,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     public void resetVideo() {
             cordova.getActivity().runOnUiThread(new Runnable() {
                   public void run() {
+                      Log.d(TAG, "RELEASING_PLAYER");
                       player1.setPlayWhenReady(false);
                       player1.stop(true);
                       player1.release();
@@ -246,10 +258,11 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     public void stopVideo() {
             cordova.getActivity().runOnUiThread(new Runnable() {
                   public void run() {
+                      Log.d(TAG, "RELEASING_PLAYER");
                       player1.setPlayWhenReady(false);
                       player1.stop(false);
-                     // player1.release();
-                   //   dialog.dismiss();
+                      player1.release();
+                   //  dialog.dismiss();
                   }
               });
     }
@@ -260,7 +273,10 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     }
 
     public void initializePlayer() {
-         player1 = new SimpleExoPlayer.Builder(cordova.getActivity()).build();
+         if ( player1 != null)
+             player1.release();
+
+         player1 = new SimpleExoPlayer.Builder(cordova.getActivity().getApplicationContext()).build();
          if ( loopMode )
              player1.setRepeatMode(Player.REPEAT_MODE_ALL);
          else
