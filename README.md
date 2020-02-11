@@ -2,7 +2,10 @@
 The new Cordova Plugin for android video player
 
 PHENIX VIDEO PLAYER FOR ANDROID
-
+HOW TO USE 
+1) IONIC 
+ (<any>window).plugins.phenixVideoPlayer.playVideo();
+  
 THE FOLLOWING FUNCTIONS ARE AVAILABLE
 
 - PLAY A UNIQUE VIDEO
