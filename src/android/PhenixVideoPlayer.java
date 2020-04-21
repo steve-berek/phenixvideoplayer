@@ -261,11 +261,18 @@ public class PhenixVideoPlayer extends CordovaPlugin {
     public void stopVideo() {
             cordova.getActivity().runOnUiThread(new Runnable() {
                   public void run() {
+                      try {
                       Log.d(TAG, "RELEASING_PLAYER");
+                     if ( player1 != null && dialog != null) {
                       player1.setPlayWhenReady(false);
                       player1.stop(false);
                       player1.release();
                       dialog.dismiss();
+                     }
+                      } catch (Exception e) {
+                            callbackContext.error("Error encountered: " + e.getMessage());
+                            return false;
+                        }
                   }
               });
     }
