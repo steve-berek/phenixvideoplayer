@@ -262,7 +262,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
                       player1.setPlayWhenReady(false);
                       player1.stop(false);
                       player1.release();
-                   //  dialog.dismiss();
+                      dialog.dismiss();
                   }
               });
     }
@@ -298,6 +298,9 @@ public class PhenixVideoPlayer extends CordovaPlugin {
                          break;
                      case Player.STATE_ENDED :
                          Log.d(TAG,"STATE -> ENDED");
+                         if ( loopMode )
+                          stopVideo();
+                          
                              PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
                              globalCallbackContext.sendPluginResult(pluginResult);
                          break;
