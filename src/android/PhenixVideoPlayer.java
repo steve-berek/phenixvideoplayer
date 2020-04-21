@@ -252,6 +252,9 @@ public class PhenixVideoPlayer extends CordovaPlugin {
                       player1.setPlayWhenReady(false);
                       player1.stop(true);
                       player1.release();
+
+                      // RESTART CURRENT PLAYLIST
+                      initVideoPlaylist();
                   }
               });
     }
@@ -300,7 +303,7 @@ public class PhenixVideoPlayer extends CordovaPlugin {
                          Log.d(TAG,"STATE -> ENDED");
                          if ( loopMode )
                           stopVideo();
-                          
+
                              PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
                              globalCallbackContext.sendPluginResult(pluginResult);
                          break;
